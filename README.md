@@ -5,7 +5,7 @@ Um aplicativo simples para converter entre diferentes moedas usando taxas de câ
 ## Como usar
 
 1. Clone o repositório:
-git clone https://github.com/seu-usuario/conversor-de-moedas.git
+git clone https://github.com/LeoBonadiman/conversor-de-moedas.git
 cd conversor-de-moedas
 
 2. Instale as dependências:
