@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        select, input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor de Moedas</h1>
+        <form id="converter-form">
+            <label for="moeda_origem">Moeda de Origem:</label>
+            <select id="moeda_origem">
+                <option value="USD">USD</option>
+                <option value="BRL">BRL</option>
+                <option value="EUR">EUR</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+            </select>
+            <label for="moeda_destino">Moeda de Destino:</label>
+            <select id="moeda_destino">
+                <option value="USD">USD</option>
+                <option value="BRL">BRL</option>
+                <option value="EUR">EUR</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+            </select>
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" step="any" required>
+            <button type="submit">Converter</button>
+        </form>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('converter-form');
+        const resultadoDiv = document.getElementById('resultado');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const moedaOrigem = document.getElementById('moeda_origem').value;
+            const moedaDestino = document.getElementById('moeda_destino').value;
+            const valor = document.getElementById('valor').value;
+
+            const url = `/converter?from=${moedaOrigem}&to=${moedaDestino}&amount=${valor}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                resultadoDiv.textContent = `Resultado: ${data.resultado}`;
+            } catch (error) {
+                console.error('Erro ao converter moeda:', error);
+                resultadoDiv.textContent = 'Erro ao converter moeda. Por favor, tente novamente mais tarde.';
+            }
+        });
+    </script>
+</body>
+</html>
